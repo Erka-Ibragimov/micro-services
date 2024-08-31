@@ -10,6 +10,9 @@ COPY . .
 
 RUN npm run build
 
+ENV RABBITMQ_URL=amqp://rabbitmq:5672
+ENV REDIS_URL=redis://redis:6379
+
 FROM node:18-alpine
 
 WORKDIR /app
