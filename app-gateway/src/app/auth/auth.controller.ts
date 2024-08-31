@@ -3,6 +3,7 @@ import { AuthService } from './auth.service';
 import { AuthDto } from './dto/auth.dto';
 import { AuthGuard } from './auth.guard';
 import { Auth, IAuth } from 'src/common/auth.decorator';
+import { ApiBearerAuth } from '@nestjs/swagger';
 
 @Controller('auth')
 export class AuthContoller {
@@ -18,6 +19,7 @@ export class AuthContoller {
     return await this.authService.login(data);
   }
 
+  @ApiBearerAuth()
   @UseGuards(AuthGuard)
   @Get('/check')
   async check(@Auth() auth: IAuth) {

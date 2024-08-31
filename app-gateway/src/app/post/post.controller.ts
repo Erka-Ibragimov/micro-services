@@ -18,7 +18,9 @@ import { Cache } from 'cache-manager';
 import { Auth, IAuth } from 'src/common/auth.decorator';
 import { AuthGuard } from '../auth/auth.guard';
 import { PostDto } from './dto/post.dto';
+import { ApiBearerAuth } from '@nestjs/swagger';
 
+@ApiBearerAuth()
 @Controller('post')
 export class PostController {
   constructor(
@@ -52,7 +54,6 @@ export class PostController {
     @Req() request: Request,
     @Auth() auth: IAuth,
   ) {
-    console.log('here3')
     const value = await this.cacheManager.get(`post:${request.url}`);
 
     if (value) return JSON.parse(value as string);
