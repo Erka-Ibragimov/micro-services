@@ -10,7 +10,7 @@ export class ConnectDbService {
   async findOneBy(login: string) {
     const { data } = await firstValueFrom(
       this.httpService
-        .get(`http://localhost:3008/client/${login}`, {
+        .get(`http://db:3008/client/${login}`, {
           headers: {
             'Content-Type': 'application/json',
           },
@@ -29,7 +29,7 @@ export class ConnectDbService {
     const result = await firstValueFrom(
       this.httpService
         .post(
-          `http://localhost:3008/client`,
+          `http://db:3008/client`,
           {
             ...data,
           },

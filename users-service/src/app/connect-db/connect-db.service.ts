@@ -16,7 +16,7 @@ export class ConnectDbService {
     const result = await firstValueFrom(
       this.httpService
         .post(
-          `http://localhost:3008/user/find`,
+          `http://db:3008/user/find`,
           {
             ...data,
           },
@@ -52,7 +52,7 @@ export class ConnectDbService {
     const result = await firstValueFrom(
       this.httpService
         .post(
-          `http://localhost:3008/user/findOne`,
+          `http://db:3008/user/findOne`,
           {
             ...data,
           },
@@ -88,7 +88,7 @@ export class ConnectDbService {
     const result = await firstValueFrom(
       this.httpService
         .post(
-          `http://localhost:3008/user/update`,
+          `http://db:3008/user/update`,
           {
             ...data,
           },
@@ -127,7 +127,7 @@ export class ConnectDbService {
     const result = await firstValueFrom(
       this.httpService
         .post(
-          `http://localhost:3008/user/create`,
+          `http://db:3008/user/create`,
           {
             ...data,
           },
@@ -163,7 +163,7 @@ export class ConnectDbService {
     const result = await firstValueFrom(
       this.httpService
         .post(
-          `http://localhost:3008/user/delete`,
+          `http://db:3008/user/delete`,
           {
             ...data,
           },
@@ -198,7 +198,7 @@ export class ConnectDbService {
   async check(token: string) {
     const { data } = await firstValueFrom(
       this.httpService
-        .get('http://localhost:3005/auth/check', {
+        .get('http://db:3005/auth/check', {
           headers: { Authorization: `Bearer ${token}` },
         })
         .pipe(

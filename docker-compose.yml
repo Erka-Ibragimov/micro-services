@@ -2,6 +2,7 @@ version: "3.8"
 services:
   app-gateway:
     build: ./app-gateway
+    restart: always
     ports:
       - "3005:3005"
     environment:
@@ -57,6 +58,7 @@ services:
 
   db:
     build: ./database
+    restart: always
     ports:
       - "3008:3008"
     environment:
@@ -83,11 +85,13 @@ services:
 
   redis:
     image: redis:6-alpine
+    restart: always
     ports:
       - "6379:6379"
 
   rabbitmq:
     image: rabbitmq:3-management-alpine
+    restart: always
     ports:
       - "5672:5672"
       - "15672:15672"

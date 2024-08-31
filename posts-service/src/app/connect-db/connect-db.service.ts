@@ -11,7 +11,7 @@ export class ConnectDbService {
     const result = await firstValueFrom(
       this.httpService
         .post(
-          `http://localhost:3008/post/find`,
+          `http://db:3008/post/find`,
           {
             ...data,
           },
@@ -51,7 +51,7 @@ export class ConnectDbService {
     const result = await firstValueFrom(
       this.httpService
         .post(
-          `http://localhost:3008/post/findOne`,
+          `http://db:3008/post/findOne`,
           {
             ...data,
           },
@@ -90,7 +90,7 @@ export class ConnectDbService {
     const result = await firstValueFrom(
       this.httpService
         .post(
-          `http://localhost:3008/post/update`,
+          `http://db:3008/post/update`,
           {
             ...data,
           },
@@ -129,7 +129,7 @@ export class ConnectDbService {
     const result = await firstValueFrom(
       this.httpService
         .post(
-          `http://localhost:3008/post/create`,
+          `http://db:3008/post/create`,
           {
             ...data,
           },
@@ -165,7 +165,7 @@ export class ConnectDbService {
     const result = await firstValueFrom(
       this.httpService
         .post(
-          `http://localhost:3008/post/delete`,
+          `http://db:3008/post/delete`,
           {
             ...data,
           },
