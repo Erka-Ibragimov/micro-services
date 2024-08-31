@@ -10,6 +10,11 @@ COPY . .
 
 RUN npm run build
 
+ENV RABBITMQ_URL=amqp://rabbitmq:5672
+ENV REDIS_HOST=localhost
+ENV REDIS_PORT=6379
+ENV JWT_SECRET=TEST
+
 FROM node:18-alpine
 
 WORKDIR /app
