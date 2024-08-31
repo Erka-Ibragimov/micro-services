@@ -1,33 +1,17 @@
-FROM node:18-alpine AS builder
+FROM node:20-alpine
 
 WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm install --legacy-peer-deps
+RUN npm install
 
 COPY . .
 
+COPY ./dist ./dist
+
 RUN npm run build
 
-ENV POSTGRES_HOST=localhost
-ENV POSTGRES_PORT=5432
-ENV POSTGRES_USERNAME=postgres
-ENV POSTGRES_PASSWORD=root123
-ENV POSTGRES_DATABASE=postgres
+EXPOSE 3005
 
-FROM node:18-alpine
-
-WORKDIR /app
-
-COPY --from=builder /app/package*.json ./
-
-RUN npm install --only=production --legacy-peer-deps
-
-COPY --from=builder /app/dist ./dist
-
-COPY --from=builder /app/.env ./
-
-EXPOSE 3008
-
-CMD ["node", "dist/main.js"]
+CMD ["npm", "run", "start:dev"]

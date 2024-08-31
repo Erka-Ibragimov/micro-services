@@ -6,11 +6,14 @@ services:
       - "3005:3005"
     environment:
       - PORT=3005
+      - NODE_ENV=development
       - USERS_SERVICE_URL=http://users-service:3006
       - POSTS_SERVICE_URL=http://posts-service:3007
-      - DB_SERVICE_URL=http://db:3008
+      - DB=http://db:3008
       - REDIS_HOST=redis
+      - REDIS_PORT=6379
       - RABBITMQ_HOST=rabbitmq
+      - RABBITMQ_PORT=5672
     depends_on:
       - users-service
       - posts-service
@@ -24,9 +27,12 @@ services:
       - "3006:3006"
     environment:
       - PORT=3006
-      - DB_SERVICE_URL=http://db:3008
+      - NODE_ENV=development
+      - DB_URL=http://db:3008
       - REDIS_HOST=redis
+      - REDIS_PORT=6379
       - RABBITMQ_HOST=rabbitmq
+      - RABBITMQ_PORT=5672
     depends_on:
       - db
       - redis
@@ -38,9 +44,12 @@ services:
       - "3007:3007"
     environment:
       - PORT=3007
-      - DB_SERVICE_URL=http://db:3008
+      - NODE_ENV=development
+      - DB_URL=http://db:3008
       - REDIS_HOST=redis
+      - REDIS_PORT=6379
       - RABBITMQ_HOST=rabbitmq
+      - RABBITMQ_PORT=5672
     depends_on:
       - db
       - redis
@@ -51,28 +60,26 @@ services:
     ports:
       - "3008:3008"
     environment:
-      - PORT=3008
-      - DATABASE_URL=postgresql://postgres:root123@database:5432/postgres
-      - POSTGRES_HOST=localhost
-      - POSTGRES_PORT=5432
+      - NODE_ENV=development
+      - DATABASE_HOST=postgres
+      - DATABASE_PORT=5432
       - POSTGRES_USERNAME=postgres
       - POSTGRES_PASSWORD=root123
       - POSTGRES_DATABASE=postgres
     depends_on:
-      - database
+      - postgres
 
-  database:
-    image: postgres
+  postgres:
+    image: postgres:latest
+    restart: always
     environment:
-      POSTGRES_HOST: localhost
-      POSTGRES_PORT: 5432
       POSTGRES_USERNAME: postgres
       POSTGRES_PASSWORD: root123
       POSTGRES_DATABASE: postgres
-    volumes:
-      - db-data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
 
   redis:
     image: redis:6-alpine
@@ -84,6 +91,9 @@ services:
     ports:
       - "5672:5672"
       - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
 
 volumes:
-  db-data:
+  postgres_data:
